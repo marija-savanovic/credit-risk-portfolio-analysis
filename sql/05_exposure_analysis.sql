@@ -24,18 +24,17 @@ SELECT
     ) AS default_rate_pct,
 
     ROUND(
-        SUM(
-            CASE
-                WHEN loan_status = 1
-                THEN loan_amnt
-                ELSE 0
-            END
-        )
-        /
-        SUM(loan_amnt)
-        * 100,
-        2
-    ) AS defaulted_amount_pct
+    100.0 *
+    SUM(
+        CASE
+            WHEN loan_status = 1
+            THEN loan_amnt
+            ELSE 0
+        END
+    )
+    / SUM(loan_amnt),
+    2
+) AS defaulted_amount_pct
 
 FROM credit_risk
 
